@@ -1,5 +1,4 @@
 <h1>bookmarks </h1>
-<h2>Welcome <%= @current_user.email if current_user %></h2>
 <ul id=links>
   <% @links.each do |link| %>
     <%= link.title %> - <%= link.url %> - <%= link.tags[0].name %> <br>

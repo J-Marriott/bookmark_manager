@@ -5,6 +5,7 @@ require_relative './app/datamapper_setup.rb'
 
 class Bookmark_manager < Sinatra::Base
   enable :sessions
+  set :session_secret, 'super secret'
 
   get '/' do
     redirect '/links'
@@ -28,11 +29,11 @@ class Bookmark_manager < Sinatra::Base
   end
 
   post '/links' do
-    link = Link.new(url: params[:url], # 1. Create a link
+    link = Link.new(url: params[:url],
                     title: params[:title])
     params[:tags].split.each do |tag|
-      link.tags << Tag.first_or_create(name: tag) # 2. Create a tag for the link
-    end # 3. Adding the tag to the link's DataMapper collection.
+      link.tags << Tag.first_or_create(name: tag)
+    end
     link.save
     redirect to('/links')
   end
