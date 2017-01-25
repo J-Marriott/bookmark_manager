@@ -23,4 +23,8 @@ feature 'email content' do
     expect { sign_up(email: nil) }.not_to change(User, :count)
     expect(current_path).to eq '/users'
   end
+
+  scenario 'User can\'t sign up with an invalid email' do
+    expect {sign_up(email: 'invalid@email.com').not_to change(User, :count)}
+  end
 end

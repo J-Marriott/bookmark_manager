@@ -17,5 +17,5 @@ class User
   end
 
   validates_confirmation_of :password
-
+  validates_format_of :email, as: :email_address
 end
