@@ -7,7 +7,7 @@ class User
   attr_reader :password
 
   property :id, Serial
-  property :email, String
+  property :email, String, required: true
 
   property :password_digest, Text
 
@@ -15,7 +15,7 @@ class User
     @password = password
     self.password_digest = BCrypt::Password.create(password)
   end
-  
+
   validates_confirmation_of :password
 
 end

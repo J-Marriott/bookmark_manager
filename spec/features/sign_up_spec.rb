@@ -17,3 +17,10 @@ feature 'password verification' do
     expect(page).to have_content 'Password and confirmation password do not match'
   end
 end
+
+feature 'email content' do
+  scenario 'It checks that the email field isn\'t blank' do
+    expect { sign_up(email: nil) }.not_to change(User, :count)
+    expect(current_path).to eq '/users'
+  end
+end
