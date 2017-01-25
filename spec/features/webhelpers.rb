@@ -13,3 +13,10 @@ def new_link_multiple_tags(hash = {})
   fill_in 'tags', with:  (hash[:tags] || 'search gmail')
   click_button 'add link'
 end
+
+def sign_up
+  visit '/sign_up'
+  fill_in 'email', with: 'mememe@not_a_url.com'
+  fill_in 'password', with: 'worldsbestpassword'
+  click_button 'submit'
+end

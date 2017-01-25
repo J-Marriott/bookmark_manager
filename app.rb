@@ -4,6 +4,8 @@ require 'sinatra/base'
 require_relative './app/datamapper_setup.rb'
 
 class Bookmark_manager < Sinatra::Base
+  enable :sessions
+  
   get '/' do
     redirect '/links'
   end
@@ -17,6 +19,7 @@ class Bookmark_manager < Sinatra::Base
 
   get '/links' do
     @links = Link.all
+    @user = User
     erb(:links)
   end
 
@@ -32,6 +35,15 @@ class Bookmark_manager < Sinatra::Base
     end # 3. Adding the tag to the link's DataMapper collection.
     link.save
     redirect to('/links')
+  end
+
+  get '/sign_up' do
+    erb(:sign_up)
+  end
+
+  post '/sign_up_process' do
+    User.create(email: params[:email], password: params[:password])
+    redirect '/links'
   end
 
   # start the server if ruby file executed directly
