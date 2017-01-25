@@ -7,7 +7,7 @@ class User
   attr_reader :password
 
   property :id, Serial
-  property :email, String, required: true
+  property :email, String, required: true, unique: true
 
   property :password_digest, Text
 

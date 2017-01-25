@@ -8,13 +8,9 @@ end
 
 feature 'password verification' do
   scenario 'It checks two passwords to see if they match' do
-    # visit '/users/new'
-    # fill_in 'email', with: 'mememe@not_a_url.com'
-    # fill_in 'password', with: 'worldsbestpassword'
-    # fill_in 'password_check', with: 'nottheworldsbestpassword'
     expect { sign_up(password_confirmation: 'wrong') }.not_to change(User, :count)
     expect(current_path).to eq '/users'
-    expect(page).to have_content 'Password and confirmation password do not match'
+    expect(page).to have_content 'Password does not match the confirmation'
   end
 end
 
@@ -22,9 +18,16 @@ feature 'email content' do
   scenario 'It checks that the email field isn\'t blank' do
     expect { sign_up(email: nil) }.not_to change(User, :count)
     expect(current_path).to eq '/users'
+    expect(page).to have_content('Email must not be blank')
   end
 
   scenario 'User can\'t sign up with an invalid email' do
-    expect {sign_up(email: 'invalid@email.com').not_to change(User, :count)}
+    expect { sign_up(email: 'invalid@email.com').not_to change(User, :count) }
+  end
+
+  scenario 'User can\'t sign up if email address has already been used' do
+    sign_up
+    expect { sign_up }.not_to change(User, :count)
+    expect(page).to have_content 'Email is already taken'
   end
 end
