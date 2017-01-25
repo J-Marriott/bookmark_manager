@@ -37,11 +37,11 @@ class Bookmark_manager < Sinatra::Base
     redirect to('/links')
   end
 
-  get '/sign_up' do
-    erb(:sign_up)
+  get '/users/new' do
+    erb(:'users/new')
   end
 
-  post '/sign_up_process' do
+  post '/users' do
     user = User.create(email: params[:email], password: params[:password])
     session[:user_id] = user.id
     redirect '/links'

@@ -15,7 +15,7 @@ def new_link_multiple_tags(hash = {})
 end
 
 def sign_up
-  visit '/sign_up'
+  visit '/users/new'
   fill_in 'email', with: 'mememe@not_a_url.com'
   fill_in 'password', with: 'worldsbestpassword'
   click_button 'submit'
